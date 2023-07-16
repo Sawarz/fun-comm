@@ -1,9 +1,11 @@
 import Link from "next/link";
+import styles from "./Header.module.scss";
+import Menu from "@/src/components/menu/Menu";
 
 export default function Header() {
 	return (
-		<div>
-			<Link href='/home'>Home</Link>
+		<div className={styles.Header}>
+			<Menu />
 		</div>
 	);
 }
