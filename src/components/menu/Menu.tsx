@@ -9,7 +9,7 @@ export default function Menu() {
 				<Link href='/home'>Home</Link>
 			</div>
 			<div className={styles.MenuItem}>
-				<Link href='/home'>Shop</Link>
+				<Link href='/shop'>Shop</Link>
 			</div>
 		</div>
 	);
