@@ -1,22 +1,46 @@
 "use client";
 
-import React from "react";
-import { signIn, signOut, useSession } from "next-auth/react";
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { server } from "@/src/config/index";
+import { Product } from "@prisma/client";
+import { ProductListType } from "@/src/types/ProductList";
 
-export default function admin() {
-	const { data: session } = useSession();
+import ProductActions from "@/src/admincomponents/ProductActions/ProductActions";
 
-	if (session && session.user) {
-		return (
-			<div>
-				<button onClick={() => signOut()}>Sign out</button>
-				<div>{session.user.name}</div>
-			</div>
-		);
-	}
+export default function Admin() {
+	const [products, setProducts] = useState<Array<Product>>();
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const response = await fetch(`${server}/api/getProducts`);
+			const json = await response.json();
+
+			setProducts(json);
+		};
+
+		fetchData().catch(console.error);
+	}, []);
+
 	return (
 		<div>
-			<button onClick={() => signIn()}>Sign in</button>
+			<Link href='admin/addProduct'>Add product</Link>
+			<div>
+				{products?.map((product: Product) => {
+					return (
+						<div>
+							<div>{product.name}</div>
+							<div>{product.price}</div>
+							<div>{product.id}</div>
+							<ProductActions
+								productId={product.id}
+								products={products}
+								setProducts={setProducts}
+							/>
+						</div>
+					);
+				})}
+			</div>
 		</div>
 	);
 }
