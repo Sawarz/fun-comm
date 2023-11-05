@@ -5,7 +5,14 @@ import ProductList from "@/src/components/productlist/ProductList";
 import styles from "./page.module.css";
 
 const getProducts = async (): Promise<any> => {
-	const data = await fetch(`${server}/api/getProducts`);
+	const data = await fetch(`${server}/api/getProducts`, {
+		method: "GET",
+	});
+
+	if (data.headers.get("content-type")?.includes("text/html")) {
+		return [];
+	}
+
 	const products = await data.json();
 
 	return products;
