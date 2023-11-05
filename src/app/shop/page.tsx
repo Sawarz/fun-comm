@@ -9,10 +9,6 @@ const getProducts = async (): Promise<any> => {
 		method: "GET",
 	});
 
-	if (data.headers.get("content-type")?.includes("text/html")) {
-		return [];
-	}
-
 	const products = await data.json();
 
 	return products;
