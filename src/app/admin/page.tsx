@@ -28,7 +28,7 @@ export default function Admin() {
 			<div>
 				{products?.map((product: Product) => {
 					return (
-						<div>
+						<div key={product.name}>
 							<div>{product.name}</div>
 							<div>{product.price}</div>
 							<div>{product.id}</div>

@@ -30,7 +30,10 @@ export default function ProductList(props: ProductListType) {
 
 	return products.map((product: Product) => {
 		return (
-			<div className={styles.product}>
+			<div
+				className={styles.product}
+				key={product.name}
+			>
 				<div className={styles.productName}>{product.name}</div>
 				<div className={styles.productPrice}>{product.price} zł</div>
 				<button onClick={() => buy(product.price, product.name)}>
