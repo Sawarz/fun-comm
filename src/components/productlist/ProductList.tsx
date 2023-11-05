@@ -5,6 +5,8 @@ import React from "react";
 import { ProductListType } from "@/src/types/ProductList";
 import axios from "axios";
 
+import styles from "./ProductList.module.css";
+
 export default function ProductList(props: ProductListType) {
 	const { products } = props;
 
@@ -12,7 +14,7 @@ export default function ProductList(props: ProductListType) {
 		const { data } = await axios.post(
 			"/api/stripe",
 			{
-				price,
+				price: (parseFloat(price.toFixed(2)) * 100).toFixed(0),
 				name,
 			},
 			{
@@ -28,9 +30,9 @@ export default function ProductList(props: ProductListType) {
 
 	return products.map((product: Product) => {
 		return (
-			<div>
-				<div>{product.name}</div>
-				<div>{product.price}</div>
+			<div className={styles.product}>
+				<div className={styles.productName}>{product.name}</div>
+				<div className={styles.productPrice}>{product.price} zł</div>
 				<button onClick={() => buy(product.price, product.name)}>
 					BUY
 				</button>

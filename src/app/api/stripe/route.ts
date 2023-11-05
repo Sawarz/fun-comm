@@ -25,7 +25,7 @@ export async function POST(request: Request) {
           product_data: {
             name
           },
-          unit_amount: parseFloat(price)
+          unit_amount: price
         },
         quantity: 1,
       },
