@@ -8,7 +8,7 @@ import axios from "axios";
 export default function ProductList(props: ProductListType) {
 	const { products } = props;
 
-	const buy = async (price: string, name: string) => {
+	const buy = async (price: number, name: string) => {
 		const { data } = await axios.post(
 			"/api/stripe",
 			{
