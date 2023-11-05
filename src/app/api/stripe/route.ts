@@ -14,7 +14,7 @@ export async function POST(request: Request) {
 
   const dev = process.env.NODE_ENV !== 'production';
 
-  const server = dev ? 'http://localhost:3000' : 'https://fun-comm-lbprs1a7w-sawarz.vercel.app/';
+  const server = dev ? 'http://localhost:3000' : 'https://fun-comm-lbprs1a7w-sawarz.vercel.app';
 
   const paymentIntent = await stripe.checkout.sessions.create({
     payment_method_types: ['card', 'p24'],
