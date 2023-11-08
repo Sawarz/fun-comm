@@ -4,7 +4,7 @@ import ProductList from "@/src/components/productlist/ProductList";
 
 import styles from "./page.module.css";
 
-const getProducts = async (): Promise<any> => {
+const getProducts = async () => {
 	const data = await fetch(`${server}/api/getProducts`, {
 		method: "GET",
 	});
