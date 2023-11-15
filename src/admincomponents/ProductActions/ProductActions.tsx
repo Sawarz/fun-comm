@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import axios from "axios";
 import { server } from "@/src/config/index";
 import { Product } from "@prisma/client";
 import { ProductListType } from "@/src/types/ProductList";
@@ -18,22 +16,23 @@ export default function ProductActions(props: Props) {
 	return (
 		<div>
 			<button
-				onClick={() => {
-					axios
-						.post(`${server}/api/deleteProduct`, {
-							id: productId,
-						})
-						.then(function (response) {
-							const newProducts = products.filter(
-								({ id }) => id !== productId
-							);
-
-							if (response.status === 200) {
-								setProducts(newProducts);
-							} else {
-								console.error(response);
-							}
+				onClick={async () => {
+					try {
+						await fetch(`${server}/api/deleteProduct`, {
+							method: "POST",
+							body: JSON.stringify({
+								id: productId,
+							}),
 						});
+
+						const newProducts = products.filter(
+							({ id }) => id !== productId
+						);
+
+						setProducts(newProducts);
+					} catch (error) {
+						console.error(error);
+					}
 				}}
 			>
 				Remove
