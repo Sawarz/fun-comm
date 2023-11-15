@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "../reset.scss";
+import { Roboto } from "next/font/google";
+import "@/src/reset.scss";
+import "@/src/global.scss";
 import Header from "@/src/components/header/Header";
 import MainContent from "@/src/components/maincontent/MainContent";
 import Providers from "@/src/components/providers/Providers";
 
-const inter = Inter({ subsets: ["latin"] });
+const roboto = Roboto({
+	weight: ["400"],
+	subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
 	title: "Fun-comm",
@@ -19,7 +23,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang='en'>
-			<body className={inter.className}>
+			<body className={roboto.className}>
 				<Providers>
 					<Header></Header>
 					<MainContent>{children}</MainContent>
