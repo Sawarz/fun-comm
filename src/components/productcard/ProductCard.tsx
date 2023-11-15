@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Product } from "@prisma/client";
 import styles from "./ProductCard.module.scss";
 import axios from "axios";
@@ -10,7 +10,11 @@ interface Props {
 export default function ProductCard(props: Props) {
 	const { product } = props;
 
+	const [loading, setLoading] = useState(false);
+
 	const buy = async (price: number, name: string) => {
+		setLoading(true);
+
 		const { data } = await axios.post(
 			"/api/stripe",
 			{
@@ -24,8 +28,11 @@ export default function ProductCard(props: Props) {
 			}
 		);
 
-		window.location.assign(data.url);
-		(window as any).testValue = data.shipping_details;
+		if (data.url) {
+			window.location.assign(data.url);
+		}
+
+		setLoading(false);
 	};
 
 	return (
@@ -35,8 +42,11 @@ export default function ProductCard(props: Props) {
 		>
 			<div className={styles.name}>{product.name}</div>
 			<div className={styles.price}>{product.price} zł</div>
-			<button onClick={() => buy(product.price, product.name)}>
-				BUY
+			<button
+				className={styles.buyButton}
+				onClick={() => buy(product.price, product.name)}
+			>
+				{loading ? "ADDING..." : "BUY"}
 			</button>
 		</div>
 	);
