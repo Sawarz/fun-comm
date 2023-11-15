@@ -19,16 +19,10 @@ export default function AddProduct() {
 			></input>
 			<button
 				onClick={() => {
-					console.log(name);
-					console.log(price);
-					axios
-						.post(`${server}/api/addProduct`, {
-							name,
-							price,
-						})
-						.then(function (response) {
-							console.log(response);
-						});
+					axios.post(`${server}/api/addProduct`, {
+						name,
+						price,
+					});
 				}}
 			>
 				Add
