@@ -11,7 +11,7 @@ export default function ProductList(props: ProductListType) {
 	const { products } = props;
 
 	return (
-		<div>
+		<div className={styles.productList}>
 			{products.map((product: Product) => (
 				<ProductCard
 					key={product.name}
