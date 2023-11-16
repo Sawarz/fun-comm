@@ -29,6 +29,7 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.7",
     "prisma": "^5.0.0",
     "sass": "^1.63.6"
   }
