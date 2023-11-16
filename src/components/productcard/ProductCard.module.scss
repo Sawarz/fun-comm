@@ -1,7 +1,12 @@
 .product {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.image {
+    position: relative;
 }
 
 .name {
