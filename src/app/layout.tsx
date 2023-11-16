@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Gilda_Display } from "next/font/google";
 import "@/src/reset.scss";
 import "@/src/global.scss";
 import Header from "@/src/components/header/Header";
 import MainContent from "@/src/components/maincontent/MainContent";
 import Providers from "@/src/components/providers/Providers";
 
-const roboto = Roboto({
+const gildaFont = Gilda_Display({
 	weight: ["400"],
 	subsets: ["latin"],
 });
@@ -23,7 +23,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang='en'>
-			<body className={roboto.className}>
+			<body className={gildaFont.className}>
 				<Providers>
 					<Header></Header>
 					<MainContent>{children}</MainContent>
