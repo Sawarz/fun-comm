@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Product } from "@prisma/client";
 import styles from "./ProductCard.module.scss";
-import axios from "axios";
 import { storage } from "@/src/firebase/FirebaseCore";
 import { ref, getDownloadURL } from "firebase/storage";
 import Image from "next/image";
@@ -39,24 +38,30 @@ export default function ProductCard(props: Props) {
 	const buy = async (price: number, name: string) => {
 		setLoading(true);
 
-		const { data } = await axios.post(
-			"/api/stripe",
-			{
-				price: (parseFloat(price.toFixed(2)) * 100).toFixed(0),
-				name,
-			},
-			{
+		try {
+			const data = await fetch("/api/stripe", {
+				method: "POST",
+				body: JSON.stringify({
+					price: (parseFloat(price.toFixed(2)) * 100).toFixed(0),
+					name,
+				}),
 				headers: {
 					"Content-Type": "application/json",
 				},
+			});
+
+			const dataParsed = await data.json();
+
+			const { url } = dataParsed;
+
+			if (url) {
+				window.location.assign(url);
 			}
-		);
 
-		if (data.url) {
-			window.location.assign(data.url);
+			setLoading(false);
+		} catch (error) {
+			console.log(error);
 		}
-
-		setLoading(false);
 	};
 
 	return (
@@ -78,7 +83,7 @@ export default function ProductCard(props: Props) {
 				className={styles.buyButton}
 				onClick={() => buy(product.price, product.name)}
 			>
-				{loading ? "ADDING..." : "BUY"}
+				{loading ? "ADDING..." : "ADD TO CART"}
 			</button>
 		</div>
 	);
