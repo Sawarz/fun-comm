@@ -6,6 +6,8 @@ import Header from "@/src/components/header/Header";
 import MainContent from "@/src/components/maincontent/MainContent";
 import Providers from "@/src/components/providers/Providers";
 
+import styles from "./page.module.scss";
+
 const gildaFont = Gilda_Display({
 	weight: ["400"],
 	subsets: ["latin"],
@@ -26,7 +28,9 @@ export default function RootLayout({
 			<body className={gildaFont.className}>
 				<Providers>
 					<Header></Header>
-					<MainContent>{children}</MainContent>
+					<div className={styles.page}>
+						<MainContent>{children}</MainContent>
+					</div>
 				</Providers>
 			</body>
 		</html>
