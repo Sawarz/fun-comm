@@ -18,16 +18,23 @@ export default function ProductCard(props: Props) {
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		const loadImage = async() => {
-			const gsReference = ref(storage, `gs://fun-comm.appspot.com/${product.uuid}`);
+		const loadImage = async () => {
+			try {
+				const gsReference = ref(
+					storage,
+					`gs://fun-comm.appspot.com/${product.uuid}`
+				);
 
-			const downloadURL = await getDownloadURL(gsReference);
-			setImageUrl(downloadURL);
-		}
+				const downloadURL = await getDownloadURL(gsReference);
+
+				setImageUrl(downloadURL);
+			} catch {
+				setImageUrl("/placeholders/notfound.jpg");
+			}
+		};
 
 		loadImage();
-
-	}, [product.uuid])
+	}, [product.uuid]);
 
 	const buy = async (price: number, name: string) => {
 		setLoading(true);
@@ -59,8 +66,8 @@ export default function ProductCard(props: Props) {
 		>
 			<Image
 				src={imageUrl}
-				alt="uploaded image"
-                priority={true}
+				alt='uploaded image'
+				priority={true}
 				width={200}
 				height={200}
 				className={styles.image}
